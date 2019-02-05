@@ -1,0 +1,55 @@
+Definitions = definitions:(Definition / Comment / "\n")* {
+  return definitions
+  	.filter((definition) => definition && (typeof definition !== 'string'));
+}
+Definition = "define" _ identifier:Identifier _ fields:Fields {
+  return {
+    identifier,
+    fields
+  };
+}
+
+Comment = "//" comment:([^\n]+) _ {
+  return null;
+}
+
+Fields = "{" _ fields:(Field / Comment)* _ "}" {
+  return fields.filter((field) => field);
+}
+
+Field = field:FieldIdentifier modifier:FieldModifier _ type:Types _ {
+  return { field, ...modifier, ...type }
+}
+
+Types = type:(PrimitiveType / ArrayType / MapType / ReferenceType) {
+  return type;
+}
+
+ArrayType = "Array<" type:Types ">" {
+  return { primitive: true, type: "Array", generics: [ type ] }
+}
+MapType = "Map<" _ type1:Types _ "," _ type2:Types _ ">" {
+  return { primitive: true, type: "Map", generics: [ type1, type2] }
+}
+PrimitiveType = ("Long" / "Int" / "Short" / "Byte" / "Double" / "Float" / "Boolean" / "String") {
+  return { primitive: true, type: text(), generics: [] };
+}
+ReferenceType = identifier:Identifier {
+	return { primitive: false, type: identifier, generics: [] }
+}
+
+FieldModifier = optional:"?"?  mutable:"!"?  ":" {
+  return { optional: optional == "?", mutable: mutable == "!" };
+}
+
+FieldIdentifier = [_A-Za-z0-9]+ {
+  return text();
+}
+
+Identifier = [A-Z][a-z0-9]* {
+  return text();
+}
+
+_ "whitespace"
+  = [ \t\n\r]*
+

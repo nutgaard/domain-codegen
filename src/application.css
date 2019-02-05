@@ -1,0 +1,33 @@
+html, body, #root, .application {
+    height: 100%;
+}
+
+.application {
+    margin: 0 1rem;
+}
+.editor {
+    display: flex;
+    height: 35rem;
+    margin-bottom: 2rem;
+}
+
+.editor__textarea {
+    flex: 1;
+    padding: 0 0.5rem;
+}
+.editor__textarea:first-child {
+    padding-left: 0;
+}
+.editor__textarea:last-child {
+    padding-right: 0;
+}
+
+.editor__textarea label {
+    display: block;
+}
+
+.editor__textarea textarea {
+    width: 100%;
+    height: 100%;
+    font-size: 1rem;
+}

@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import './parser';
-import './application.css';
-import parser from './parser';
 import { AST } from './ast';
 import generate from './generators/generator';
 import TsCodegen from './generators/tscodegen';
 import KotlinCodegen from './generators/kotlincodegen';
+import parser from './parser';
+import './application.css';
 
 function useField<S extends string>(initialValue: S): [S, React.ChangeEventHandler<any>] {
     const [value, setValue] = useState<S>(initialValue);
@@ -26,17 +25,22 @@ function generateCode(value: string) {
     return value;
 }
 
-const testcase = `define Kunde {
-  id?: String
-  navn!: String
-  kontoer: Array<Konto>
-  bekjente: Map<String, Kunde>
+const testcase = `define Deep {
+  var maps: Map<Int, Map<Int, Map<Int, Deep>>>
+  var lists: Array<Array<Array<Deep>>>
+}
+
+define Kunde {
+  val id: String?
+  val navn: String
+  var kontoer: Array<Konto>?
+  val bekjente: Map<String, Kunde>
 }
 
 define Konto {
-  id: String
-  kroner: Int
-  ore: Int
+  val id: String
+  val kroner: Int
+  val ore: Int
 }`;
 
 function Application() {

@@ -17,8 +17,8 @@ Fields = "{" _ fields:(Field / Comment)* _ "}" {
   return fields.filter((field) => field);
 }
 
-Field = field:FieldIdentifier modifier:FieldModifier _ type:Types _ {
-  return { field, ...modifier, ...type }
+Field = mutability:FieldMutability _ field:FieldIdentifier _ ":" _ type:Types nullable:FieldNullability _ {
+  return { field, ...type, ...mutability, ...nullable }
 }
 
 Types = type:(PrimitiveType / ArrayType / MapType / ReferenceType) {
@@ -37,9 +37,11 @@ PrimitiveType = ("Long" / "Int" / "Short" / "Byte" / "Double" / "Float" / "Boole
 ReferenceType = identifier:Identifier {
 	return { primitive: false, type: identifier, generics: [] }
 }
-
-FieldModifier = optional:"?"?  mutable:"!"?  ":" {
-  return { optional: optional == "?", mutable: mutable == "!" };
+FieldMutability = ("var" / "val") {
+  return { mutable: text() === "var" }
+}
+FieldNullability = nullable:"?"? {
+  return { nullable: nullable == "?" };
 }
 
 FieldIdentifier = [_A-Za-z0-9]+ {

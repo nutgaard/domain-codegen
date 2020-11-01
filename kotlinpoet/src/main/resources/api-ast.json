@@ -1,0 +1,169 @@
+[
+  {
+    "identifier": "Deep",
+    "fields": [
+      {
+        "field": "maps",
+        "primitive": true,
+        "type": "Map",
+        "generics": [
+          {
+            "primitive": true,
+            "type": "Int",
+            "generics": [],
+            "nullable": false
+          },
+          {
+            "primitive": true,
+            "type": "Map",
+            "generics": [
+              {
+                "primitive": true,
+                "type": "Int",
+                "generics": [],
+                "nullable": false
+              },
+              {
+                "primitive": true,
+                "type": "Map",
+                "generics": [
+                  {
+                    "primitive": true,
+                    "type": "Int",
+                    "generics": [],
+                    "nullable": false
+                  },
+                  {
+                    "primitive": false,
+                    "type": "Deep",
+                    "generics": [],
+                    "nullable": false
+                  }
+                ],
+                "nullable": true
+              }
+            ],
+            "nullable": false
+          }
+        ],
+        "nullable": false,
+        "mutable": true
+      },
+      {
+        "field": "lists",
+        "primitive": true,
+        "type": "Array",
+        "generics": [
+          {
+            "primitive": true,
+            "type": "Array",
+            "generics": [
+              {
+                "primitive": true,
+                "type": "Array",
+                "generics": [
+                  {
+                    "primitive": false,
+                    "type": "Deep",
+                    "generics": [],
+                    "nullable": false
+                  }
+                ],
+                "nullable": false
+              }
+            ],
+            "nullable": false
+          }
+        ],
+        "nullable": false,
+        "mutable": true
+      }
+    ]
+  },
+  {
+    "identifier": "Kunde",
+    "fields": [
+      {
+        "field": "id",
+        "primitive": true,
+        "type": "String",
+        "generics": [],
+        "nullable": true,
+        "mutable": false
+      },
+      {
+        "field": "navn",
+        "primitive": true,
+        "type": "String",
+        "generics": [],
+        "nullable": false,
+        "mutable": false
+      },
+      {
+        "field": "kontoer",
+        "primitive": true,
+        "type": "Array",
+        "generics": [
+          {
+            "primitive": false,
+            "type": "Konto",
+            "generics": [],
+            "nullable": true
+          }
+        ],
+        "nullable": true,
+        "mutable": true
+      },
+      {
+        "field": "bekjente",
+        "primitive": true,
+        "type": "Map",
+        "generics": [
+          {
+            "primitive": true,
+            "type": "String",
+            "generics": [],
+            "nullable": false
+          },
+          {
+            "primitive": false,
+            "type": "Kunde",
+            "generics": [],
+            "nullable": true
+          }
+        ],
+        "nullable": false,
+        "mutable": false
+      }
+    ]
+  },
+  {
+    "identifier": "Konto",
+    "fields": [
+      {
+        "field": "id",
+        "primitive": true,
+        "type": "String",
+        "generics": [],
+        "nullable": false,
+        "mutable": false
+      },
+      {
+        "field": "kroner",
+        "primitive": true,
+        "type": "Int",
+        "generics": [],
+        "nullable": false,
+        "mutable": false
+      },
+      {
+        "field": "ore",
+        "primitive": true,
+        "type": "Int",
+        "generics": [],
+        "nullable": false,
+        "mutable": false
+      }
+    ]
+  }
+]

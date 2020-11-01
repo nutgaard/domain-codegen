@@ -1085,5 +1085,6 @@ function peg$parse(input, options) {
   }
 }
 
-export const parse = peg$parse;
-export const SyntaxError = peg$SyntaxError;
+function parse() {
+    return JSON.stringify(peg$parse(...arguments));
+}

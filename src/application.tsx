@@ -3,7 +3,7 @@ import { AST } from './ast';
 import generate from './generators/generator';
 import TsCodegen from './generators/tscodegen';
 import KotlinCodegen from './generators/kotlincodegen';
-import parser from './parser';
+import * as parser from './parser'
 import './application.css';
 
 function useField<S extends string>(initialValue: S): [S, React.ChangeEventHandler<any>] {
@@ -27,7 +27,6 @@ function generateCode(value: string) {
 
 const testcase = `define Deep {
   var maps: Map<Int, Map<Int, Map<Int, Deep>>>
-  val lists: Array<Array<Array<Deep>>>
   val lists: Array<Array<Array<Deep>>>
 }
 

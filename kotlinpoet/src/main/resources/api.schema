@@ -1,0 +1,17 @@
+define Deep {
+  var maps: Map<Int, Map<Int, Map<Int, Deep>>>
+  val lists: Array<Array<Array<Deep>>>
+}
+
+define Kunde {
+  val id: String?
+  val navn: String
+  var kontoer: Array<Konto?>?
+  val bekjente: Map<String?, Kunde?>
+}
+
+define Konto {
+  val id: String
+  val kroner: Int
+  val ore: Int
+}

@@ -27,14 +27,15 @@ function generateCode(value: string) {
 
 const testcase = `define Deep {
   var maps: Map<Int, Map<Int, Map<Int, Deep>>>
-  var lists: Array<Array<Array<Deep>>>
+  val lists: Array<Array<Array<Deep>>>
+  val lists: Array<Array<Array<Deep>>>
 }
 
 define Kunde {
   val id: String?
   val navn: String
-  var kontoer: Array<Konto>?
-  val bekjente: Map<String, Kunde>
+  var kontoer: Array<Konto?>?
+  val bekjente: Map<String?, Kunde?>
 }
 
 define Konto {

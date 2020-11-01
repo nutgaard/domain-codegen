@@ -1,5 +1,5 @@
 import { Generator } from './generator'
-import { Field, OptionalField } from '../ast';
+import { Field } from '../ast';
 
 function identity(field: Field): string {
     return field.type;
@@ -19,11 +19,9 @@ const typemap: { [key: string]: (s: any) => string } = {
 };
 
 function kotlintype(field: Field): string {
-    if (!field.primitive) {
-        return field.type;
-    }
-
-    return typemap[field.type](field);
+    const type = field.primitive ? typemap[field.type](field) : field.type;
+    const nullable = field.nullable ? '?' : '';
+    return `${type}${nullable}`;
 }
 
 
@@ -36,8 +34,8 @@ export default class KotlinCodegen implements Generator {
         return '\n)\n\n';
     }
 
-    processField(field: OptionalField, index: number, allFields: OptionalField[]): string {
+    processField(field: Field, index: number, allFields: Field[]): string {
         const isLast = index === allFields.length - 1;
-        return `    ${field.mutable ? 'var' : 'val'} ${field.field}: ${kotlintype(field)}${field.optional ? '?' : ''}${isLast ? '' : ''}`;
+        return `    ${field.mutable ? 'var' : 'val'} ${field.field}: ${kotlintype(field)}${isLast ? '' : ','}`;
     }
 }

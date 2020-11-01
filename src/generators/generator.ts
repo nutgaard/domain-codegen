@@ -1,9 +1,9 @@
-import { AST, OptionalField } from '../ast';
+import { AST, Field } from '../ast';
 
 export interface Generator {
     startDefine(identifier: string): string;
     endDefine(): string;
-    processField(field: OptionalField, index: number, allFields: OptionalField[]): string;
+    processField(field: Field, index: number, allFields: Field[]): string;
 }
 
 export default function generate(ast: AST, generator: Generator): string {

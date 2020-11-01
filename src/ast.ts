@@ -1,18 +1,15 @@
-export interface Definition {
-    identifier: string;
-    fields: OptionalField[];
-}
-
 export interface Field {
     field: string;
     type: string;
     primitive: boolean;
     mutable: boolean;
+    nullable: boolean;
     generics: Field[]
 }
 
-export interface OptionalField extends Field {
-    optional: boolean;
+export interface Definition {
+    identifier: string;
+    fields: Field[];
 }
 
 export type AST = Array<Definition>;

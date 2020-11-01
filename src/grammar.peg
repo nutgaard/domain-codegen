@@ -17,12 +17,12 @@ Fields = "{" _ fields:(Field / Comment)* _ "}" {
   return fields.filter((field) => field);
 }
 
-Field = mutability:FieldMutability _ field:FieldIdentifier _ ":" _ type:Types nullable:FieldNullability _ {
-  return { field, ...type, ...mutability, ...nullable }
+Field = mutability:FieldMutability _ field:FieldIdentifier _ ":" _ type:Types  _ {
+  return { field, ...type, ...mutability }
 }
 
-Types = type:(PrimitiveType / ArrayType / MapType / ReferenceType) {
-  return type;
+Types = type:(PrimitiveType / ArrayType / MapType / ReferenceType) nullable:FieldNullability {
+  return { ...type, ...nullable };
 }
 
 ArrayType = "Array<" type:Types ">" {

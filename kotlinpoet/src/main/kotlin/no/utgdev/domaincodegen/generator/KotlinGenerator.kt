@@ -1,11 +1,25 @@
-package no.nav.sbl.dialogarena.modiabrukerdialog.api.no.utgdev.domaincodegen
+package no.nav.sbl.dialogarena.modiabrukerdialog.api.no.utgdev.domaincodegen.generator
 
-import com.squareup.kotlinpoet.ClassName
-import com.squareup.kotlinpoet.FileSpec
+import com.squareup.kotlinpoet.*
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
-import com.squareup.kotlinpoet.TypeName
-import com.squareup.kotlinpoet.TypeSpec
-import java.lang.StringBuilder
+import no.nav.sbl.dialogarena.modiabrukerdialog.api.no.utgdev.domaincodegen.AST
+import no.nav.sbl.dialogarena.modiabrukerdialog.api.no.utgdev.domaincodegen.Generator
+
+internal class DataclassSpec(identifier: String) {
+    private val type = TypeSpec
+            .classBuilder(identifier)
+            .addModifiers(KModifier.DATA)
+    private val ctor = FunSpec.constructorBuilder()
+
+    fun addParameter(identifier: String, typename: TypeName) {
+        ctor.addParameter(ParameterSpec(identifier, typename))
+        type.addProperty(PropertySpec.builder(identifier, typename).initializer(identifier).build())
+    }
+
+    fun build(): TypeSpec {
+        return type.primaryConstructor(ctor.build()).build()
+    }
+}
 
 class KotlinGenerator(
         private val packageName: String,
@@ -18,9 +32,7 @@ class KotlinGenerator(
             file.addType(createDataClass(packageName, definition))
         }
 
-        val sb = StringBuilder()
-        file.build().writeTo(sb)
-        return sb.toString()
+        return file.build().toString()
     }
 
     private fun getType(packageName: String, field: AST.Field): TypeName {

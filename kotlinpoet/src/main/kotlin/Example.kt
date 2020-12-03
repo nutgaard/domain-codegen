@@ -1,7 +1,7 @@
 package no.nav.sbl.dialogarena.modiabrukerdialog.api
 
 import no.nav.sbl.dialogarena.modiabrukerdialog.api.no.utgdev.domaincodegen.DomainCodegen
-import no.nav.sbl.dialogarena.modiabrukerdialog.api.no.utgdev.domaincodegen.KotlinGenerator
+import no.nav.sbl.dialogarena.modiabrukerdialog.api.no.utgdev.domaincodegen.generator.KotlinGenerator
 import java.io.File
 
 fun main() {
